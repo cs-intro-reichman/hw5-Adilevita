@@ -53,10 +53,10 @@ for (int i = 0; i < len; i++) {
 	// guesses[2][3] // 'L'
 	// guesses[2][4] // 'O'
     public static void storeGuess(String guess, char[][] guesses, int row) {
-		for (int col = 0; col < guess.length(); col++) {
+        for (int col = 0; col < guesses[row].length; col++) {
             guesses[row][col] = guess.charAt(col);
-        }        
-    }
+        }
+    }    
 
     // Prints the game board up to currentRow (inclusive).
     public static void printBoard(char[][] guesses, char[][] results, int currentRow) {
@@ -116,23 +116,13 @@ for (int i = 0; i < len; i++) {
             while (!valid) {
                 System.out.print("Enter your guess (5-letter word): ");
                 guess = inp.readString().toUpperCase();
-                
-                boolean inDict = false;
-
-                
-                if (guess.length() == WORD_LENGTH) {
-                    for (int d = 0; d < dict.length && !inDict; d++) {
-                        if (dict[d].equals(guess)) {
-                            inDict = true;
-                        }
-                    }
-                }
-                
-                if (guess.length() != WORD_LENGTH || !inDict) {
+            
+                if (guess.length() != WORD_LENGTH) {
                     System.out.println("Invalid word. Please try again.");
                 } else {
                     valid = true;
                 }
+            }
                 
                 storeGuess(guess, guesses, attempt);
                 computeFeedback(secret, guess, results[attempt]);
@@ -155,10 +145,7 @@ for (int i = 0; i < len; i++) {
         if (!won && attempt == MAX_ATTEMPTS) {
         System.out.println("Sorry, you did not guess the word.");
         System.out.println("The secret word was: " + secret);
-        }   
-     
          }
-
         inp.close();
         }
-    }
+}
